@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.glucode.about_you.about.views.ProfileCardView
 import com.glucode.about_you.about.views.QuestionCardView
 import com.glucode.about_you.databinding.FragmentAboutBinding
+import com.glucode.about_you.engineers.models.QuickStats
 import com.glucode.about_you.mockdata.MockData
 
 class AboutFragment: Fragment() {
@@ -30,13 +31,16 @@ class AboutFragment: Fragment() {
     private fun setProfileCard(){
         val engineerName = arguments?.getString("name")
         val techRole = arguments?.getString("role")
-        //val engineer = MockData.engineers.first { it.name == engineerName }
-        //val engineerRole = MockData.engineers.first{it.role == techRole}
+        val engineer = MockData.engineers.first { it.name == engineerName }
 
             val profileView = ProfileCardView(requireContext())
             profileView.engineerName = engineerName
             profileView.techRole = techRole
+            profileView.years = engineer.quickStats.years.toString()
+            profileView.coffee = engineer.quickStats.coffees.toString()
+            profileView.bugs = engineer.quickStats.bugs.toString()
             binding.container.addView(profileView)
+
 
     }
 
