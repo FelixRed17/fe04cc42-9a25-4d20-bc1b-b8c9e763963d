@@ -2,6 +2,7 @@ package com.glucode.about_you.engineers
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.glucode.about_you.databinding.ItemEngineerBinding
 import com.glucode.about_you.engineers.models.Engineer
@@ -30,6 +31,7 @@ class EngineersRecyclerViewAdapter(
                 onClick(engineer)
             }
             //TODO - set profile picture
+            binding.profileImage.setImageURI(engineer.defaultImageName)
 //            statusIcon.setDrawable(item.icon)
 
         }

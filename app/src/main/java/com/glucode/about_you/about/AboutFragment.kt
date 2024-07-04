@@ -51,6 +51,11 @@ class AboutFragment : Fragment() {
             profileCardView.coffee = it.quickStats.coffees.toString()
             profileCardView.bugs = it.quickStats.bugs.toString()
 
+            val defaultImageUri = it.defaultImageName
+            if (defaultImageUri != null) {
+                profileCardView.setImage(defaultImageUri)
+            }
+
 
             binding.container.addView(profileCardView)
 
@@ -75,35 +80,20 @@ class AboutFragment : Fragment() {
             binding.container.addView(questionView)
         }
     }
-    private fun checkPermissionsAndPickImage() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                REQUEST_PERMISSION_READ_EXTERNAL_STORAGE
-            )
-        } else {
-            pickImageFromGallery()
-        }
-    }
 
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, REQUEST_IMAGE_PICK)
-    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
             val selectedImage: Uri? = data?.data
             selectedImage?.let {
                 Log.d("AboutFragment", "Selected Image URI: $it")
                 if (::profileCardView.isInitialized) {
                     profileCardView.setImage(it)
+                    MockData.engineers.find { it.name == arguments?.getString("name") }?.defaultImageName = it
+                    setProfileCard()
                 }
             }
         }
