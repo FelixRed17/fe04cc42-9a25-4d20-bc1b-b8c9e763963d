@@ -1,8 +1,11 @@
 package com.glucode.about_you.about.views
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -23,6 +26,8 @@ class AnswerCardView @JvmOverloads constructor(
     @ColorInt
     private val deselectedTextColor: Int
 
+
+
     var title: String? = null
         set(value) {
             field = value
@@ -39,6 +44,7 @@ class AnswerCardView @JvmOverloads constructor(
         elevation = resources.getDimension(R.dimen.elevation_normal)
         setCardBackgroundColor(null)
     }
+
 
     override fun setSelected(selected: Boolean) {
         super.setSelected(selected)
